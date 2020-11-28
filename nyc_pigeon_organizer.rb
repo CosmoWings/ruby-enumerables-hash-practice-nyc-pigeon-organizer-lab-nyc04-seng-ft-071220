@@ -1,4 +1,38 @@
 def nyc_pigeon_organizer(data)
+  # use a double loop pattern to collect all of the pigeon names
+pigeon_array = []
+
+data.each do |nested_key,nested_value|
+  #puts nested_key
+  nested_value.each do |key, value|
+    pigeon_array.push(value)
+  end
+end
+# create a unique array of pigeon names
+uniq_pigeon_array = pigeon_array.flatten.uniq
+
+#now comapre each name in the uniq array to what is in our original data structure
+pigeon_name_hash = {}
+
+uniq_pigeon_array.each do |pigeon_name|
+  attribute_array = []
+  data.each do |pigeon_attribute,keys_to_array|
+    #pp keys_to_array
+    keys_to_array.each do |key,value|
+      #puts pigeon_attribute
+      #print key," \n\n ",value
+      if keys_to_array[key].include?(pigeon_name)
+        attribute_array << key
+      end
+    end
+    pigeon_name_hash[pigeon_name] = {
+    pigeon_attribute => attribute_array
+  }
+  end
+end
+
+pigeon_name_hash
+=begin
   # write your code here!
  #use a double loop pattern to collect all of the pigeon names
 pigeon_array = []
@@ -47,3 +81,4 @@ end
 
 pigeon_name_hash
 end
+=end
